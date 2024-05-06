@@ -7,11 +7,20 @@ public class RotadorVerticalTorreta : MonoBehaviour
     private float v;
     [SerializeField]
     private float velocidadGiroVertical;
+    [SerializeField]
+    private float anguloMinimo = 300;
 
-    // Update is called once per frame
+    [SerializeField]
+    private float anguloMaximo = 355;
+
+    private float z;
+
     void Update()
     {
         v = Input.GetAxis("Vertical");
-        transform.Rotate(0,0,v*Time.deltaTime*velocidadGiroVertical);
+        z = transform.rotation.eulerAngles.z;
+        if ((v>0 && z<anguloMaximo) || (v<0 && z>anguloMinimo)){
+            transform.Rotate(0,0,v*Time.deltaTime*velocidadGiroVertical);
+        }
     }
 }
